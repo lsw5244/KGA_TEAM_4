@@ -4,6 +4,7 @@
 #include "SceneManager.h"
 #include "Image.h"
 #include "Iori.h"
+#include "Terry.h"
 
 void MainGame::Init()
 {
@@ -32,8 +33,10 @@ void MainGame::Init()
 	}
 
 	andy = new Andy;
-
 	andy->Init();
+	// Å×¸®
+	terry = new Terry;
+	terry->Init();
 
 	mapFrameTimer = 0;
 }
@@ -45,6 +48,11 @@ void MainGame::Update()
 	if (mapFrameTimer % 20 == 0) {
 		mapFrame++;
 		if (mapFrame == 8) mapFrame = 0;
+	}
+
+	if (terry)
+	{
+		terry->Update();
 	}
 
 	andy->Update();
@@ -60,6 +68,8 @@ void MainGame::Render(HDC hdc)
 
 	andy->Render(hBackBufferDC);
 
+	terry->Render(hBackBufferDC);
+
 	backBuffer->Render(hdc);
 }
 
@@ -68,6 +78,8 @@ void MainGame::Release()
 	SAFE_RELEASE(backBuffer);
 	andy->Release();
 	SAFE_RELEASE(andy);
+	SAFE_RELEASE(terry);
+
 	for (int i = 0; i < 8; i++)
 	{
 		if (backGround[i])

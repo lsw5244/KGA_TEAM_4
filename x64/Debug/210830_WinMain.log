@@ -1,8 +1,4 @@
-﻿  andy.cpp
-C:\Users\이성우\Desktop\KGA_TEAM_4\andy.cpp(26,21): warning C4244: '=': 'FLOAT'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\이성우\Desktop\KGA_TEAM_4\andy.cpp(27,22): warning C4244: '=': 'FLOAT'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\이성우\Desktop\KGA_TEAM_4\andy.cpp(28,23): warning C4244: '=': 'FLOAT'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\이성우\Desktop\KGA_TEAM_4\andy.cpp(29,20): warning C4244: '=': 'FLOAT'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\이성우\Desktop\KGA_TEAM_4\andy.cpp(149,30): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\이성우\Desktop\KGA_TEAM_4\andy.cpp(149,23): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+﻿  Terry.cpp
+C:\Users\이성우\Desktop\KGA_TEAM_4\Terry.cpp(120,30): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\이성우\Desktop\KGA_TEAM_4\Terry.cpp(120,23): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   210830_WinMain.vcxproj -> C:\Users\이성우\Desktop\KGA_TEAM_4\x64\Debug\210830_WinMain.exe

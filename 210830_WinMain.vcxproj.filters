@@ -51,6 +51,9 @@
     <ClCompile Include="andy.cpp">
       <Filter>MainGame\KOF_Player</Filter>
     </ClCompile>
+    <ClCompile Include="Terry.cpp">
+      <Filter>MainGame\KOF_Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -81,6 +84,9 @@
       <Filter>MainGame\KOF_Player</Filter>
     </ClInclude>
     <ClInclude Include="andy.h">
+      <Filter>MainGame\KOF_Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Terry.h">
       <Filter>MainGame\KOF_Player</Filter>
     </ClInclude>
   </ItemGroup>

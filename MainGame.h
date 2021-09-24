@@ -6,7 +6,7 @@
 static int mapFrame = 0;
 
 class Image;
-class Iori;
+class Terry;
 class MainGame
 {
 private:
@@ -29,8 +29,10 @@ private:
 	int mapFrameTimer;
 
 	// 이오리
-	Iori* iori;
+	//	Iori* iori;
 	Andy* andy;
+	// 테리
+	Terry* terry;
 public:
 	void Init();
 	void Update();
