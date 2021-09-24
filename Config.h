@@ -19,6 +19,6 @@ using namespace std;
 
 enum MoveDir { Left, Right, Up, Down };
 enum TankType { Player, Enemy };
-
+enum AttackType {	SH, BH, SF, BF};
 extern HWND g_hWnd;
 extern HINSTANCE g_hInstance;

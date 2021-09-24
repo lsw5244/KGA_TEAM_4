@@ -1,9 +1,11 @@
 #pragma once
 #include "GameObject.h"
+#include "Config.h"
 //#include <iostream>
 
 enum MoveDir;
 class Image;
+
 class Andy : public GameObject
 {
 private:
@@ -16,6 +18,8 @@ private:
 	MoveDir frameDir;
 	bool isAlive;
 
+	bool isAtk[4] = {};
+	bool currAtk;
 public:
 	void Init();
 	void Update();
@@ -28,7 +32,8 @@ public:
 	inline bool GetIsAlive() { return this->isAlive; }
 
 	void AutoMove();
-	void SmallHand();
+
+	void Attack(AttackType type);
 	//float GetImgWidht() {}
 };
 

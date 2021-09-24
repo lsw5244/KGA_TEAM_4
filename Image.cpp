@@ -216,3 +216,8 @@ void Image::Render(HDC hdc, int destX, int destY, int frameX, int frameY, int ch
 	}
 }
 
+void Image::ReleaseImageInfo()
+{
+	delete imageInfo;
+}
+

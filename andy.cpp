@@ -5,8 +5,6 @@
 
 void Andy::Init()
 {
-
-
 	img = new Image;
 	string imgName = "Image/Andy_stand.bmp";
 	img->Init(imgName.c_str(), 1330, 190, 7, 1, true, RGB(255, 0, 255));
@@ -31,114 +29,97 @@ void Andy::Init()
 
 void Andy::Update()
 {
-	// 앞으로 움직이기
-	if (KeyManager::GetSingleton()->IsStayKeyDown('D'))
+	if (currAtk == false)
 	{
-		string imgName = "Image/Andy_walkRight.bmp";
-		img->Init(imgName.c_str(), 2000, 400, 5, 1, true, RGB(255, 0, 255));
-
-		elapsedCount++;
-		if (elapsedCount >= 10)
+		// 앞으로 움직이기
+		if (KeyManager::GetSingleton()->IsStayKeyDown('D'))
 		{
-			frameX++;
-			pos.x += moveSpeed;
-			if (frameX >= 5)
-			{
-				frameX = 0;
-			}
-			elapsedCount = 0;
-		}
-	}
-	else if (KeyManager::GetSingleton()->IsStayKeyDown('A'))
-	{
-		string imgName = "Image/Andy_walkLeft.bmp";
-		img->Init(imgName.c_str(), 2000, 400, 5, 1, true, RGB(255, 0, 255));
+			img->ReleaseImageInfo();
+			string imgName = "Image/Andy_walkRight.bmp";
+			img->Init(imgName.c_str(), 2000, 400, 5, 1, true, RGB(255, 0, 255));
 
-		elapsedCount++;
-		if (elapsedCount >= 10)
-		{
-			frameX--;
-			pos.x -= moveSpeed;
-			if (frameX <= -1)
+			elapsedCount++;
+			if (elapsedCount >= 4)
 			{
-				frameX = 4;
-			}
-			elapsedCount = 0;
-		}
-	}
-	else if (KeyManager::GetSingleton()->IsStayKeyDown('T'))
-	{
-		string imgName = "Image/Andy_smallHand.bmp";
-		img->Init(imgName.c_str(), 3600, 400, 9, 1, true, RGB(255, 0, 255));
-
-		elapsedCount++;
-		if (elapsedCount >= 5)
-		{
-			frameX++;
-			elapsedCount = 0;
-			if (frameX >= 9)
-			{
-				frameX = 0;
+				frameX++;
+				pos.x += moveSpeed;
+				if (frameX >= 5)
+				{
+					frameX = 0;
+				}
+				elapsedCount = 0;
 			}
 		}
-
-	}
-	else if (KeyManager::GetSingleton()->IsStayKeyDown('Y'))
-	{
-		string imgName = "Image/Andy_bigHand.bmp";
-		img->Init(imgName.c_str(), 4000, 400, 10, 1, true, RGB(255, 0, 255));
-
-		elapsedCount++;
-		if (elapsedCount >= 5)
+		else if (KeyManager::GetSingleton()->IsStayKeyDown('A'))
 		{
-			frameX++;
-			elapsedCount = 0;
-			if (frameX >= 10)
+			img->ReleaseImageInfo();
+			string imgName = "Image/Andy_walkLeft.bmp";
+			img->Init(imgName.c_str(), 2000, 400, 5, 1, true, RGB(255, 0, 255));
+
+			elapsedCount++;
+			if (elapsedCount >= 4)
 			{
-				frameX = 0;
+				frameX--;
+				pos.x -= moveSpeed;
+				if (frameX <= -1)
+				{
+					frameX = 4;
+				}
+				elapsedCount = 0;
 			}
 		}
-
-	}
-	else if (KeyManager::GetSingleton()->IsStayKeyDown('G'))
-	{
-		string imgName = "Image/Andy_smallFoot.bmp";
-		img->Init(imgName.c_str(), 3200, 400, 8, 1, true, RGB(255, 0, 255));
-
-		elapsedCount++;
-		if (elapsedCount >= 5)
+		else
 		{
-			frameX++;
-			elapsedCount = 0;
-			if (frameX >= 8)
-			{
-				frameX = 0;
-			}
+			AutoMove();
+		}
+		
+		if (KeyManager::GetSingleton()->IsStayKeyDown('T'))
+		{
+			frameX = 0;
+			isAtk[AttackType::SH] = true;
+			currAtk = true;
+
+		}
+		if (KeyManager::GetSingleton()->IsStayKeyDown('Y'))
+		{
+			frameX = 0;
+			isAtk[AttackType::BH] = true;
+			currAtk = true;
+		}
+		if (KeyManager::GetSingleton()->IsStayKeyDown('G'))
+		{
+			frameX = 0;
+			isAtk[AttackType::SF] = true;
+			currAtk = true;
+
+		}
+		if (KeyManager::GetSingleton()->IsStayKeyDown('H'))
+		{
+			frameX = 0;
+			isAtk[AttackType::SF] = true;
+			currAtk = true;
 		}
 
 	}
-	else if (KeyManager::GetSingleton()->IsStayKeyDown('H'))
+	else	
 	{
-		string imgName = "Image/Andy_bigFoot.bmp";
-		img->Init(imgName.c_str(), 5600, 400, 14, 1, true, RGB(255, 0, 255));
-
-		elapsedCount++;
-		if (elapsedCount >= 5)
+		if (isAtk[AttackType::SH])
 		{
-			frameX++;
-			elapsedCount = 0;
-			if (frameX >= 10)
-			{
-				frameX = 0;
-			}
+			Attack(SH);
 		}
-
+		else if (isAtk[AttackType::SF])
+		{
+			Attack(SF);
+		}
+		else if (isAtk[AttackType::BH])
+		{
+			Attack(BH);
+		}
+		else if (isAtk[AttackType::BF])
+		{
+			Attack(BF);
+		}
 	}
-	else
-	{
-		AutoMove();
-	}
-
 
 }
 
@@ -188,19 +169,102 @@ void Andy::AutoMove()
 	}
 
 }
-
-void Andy::SmallHand()
+void Andy::Attack(AttackType type)
 {
-	string imgName = "Image/Andy_smallHand.bmp";
-	img->Init(imgName.c_str(), 2250, 250, 9, 1, true, RGB(255, 0, 255));
-	elapsedCount++;
-	if (elapsedCount >= 8)
+	string imgName;
+	switch (type)
 	{
-		while (frameX < 9)
+	case SH:
+		img->ReleaseImageInfo();
+		imgName = "Image/Andy_smallHand.bmp";
+		img->Init(imgName.c_str(), 3600, 400, 9, 1, true, RGB(255, 0, 255));
+		elapsedCount++;
+		if (elapsedCount >= 4)
 		{
+			if (frameX == 8)
+			{
+				for (int i = 0; i < 4; i++)
+				{
+					if (isAtk[i])
+						isAtk[i] = false;
+				}
+				currAtk = false;
+				frameX = 0;
+			}
 			frameX++;
 
 			elapsedCount = 0;
 		}
+		break;
+	case BH:
+		img->ReleaseImageInfo();
+		imgName = "Image/Andy_bigHand.bmp";
+		img->Init(imgName.c_str(), 4000, 400, 10, 1, true, RGB(255, 0, 255));
+		elapsedCount++;
+		if (elapsedCount >= 4)
+		{
+			if (frameX == 9)
+			{
+				for (int i = 0; i < 4; i++)
+				{
+					if (isAtk[i])
+						isAtk[i] = false;
+				}
+				currAtk = false;
+				frameX = 0;
+			}
+			frameX++;
+
+			elapsedCount = 0;
+		}
+		break;
+	case SF:
+		img->ReleaseImageInfo();
+		imgName = "Image/Andy_smallFoot.bmp";
+		img->Init(imgName.c_str(), 3200, 400, 8, 1, true, RGB(255, 0, 255));
+
+		elapsedCount++;
+		if (elapsedCount >= 4)
+		{
+			if (frameX == 7)
+			{
+				for (int i = 0; i < 4; i++)
+				{
+					if (isAtk[i])
+						isAtk[i] = false;
+				}
+				currAtk = false;
+				frameX = 0;
+			}
+			frameX++;
+
+			elapsedCount = 0;
+		}
+		break;
+	case BF:
+		img->ReleaseImageInfo();
+		imgName = "Image/Andy_bigFoot.bmp";
+		img->Init(imgName.c_str(), 5600, 400, 14, 1, true, RGB(255, 0, 255));
+
+		elapsedCount++;
+		if (elapsedCount >= 4)
+		{
+			if (frameX == 13)
+			{
+				for (int i = 0; i < 4; i++)
+				{
+					if (isAtk[i])
+						isAtk[i] = false;
+				}
+				currAtk = false;
+				frameX = 0;
+			}
+			frameX++;
+
+			elapsedCount = 0;
+		}
+		break;
+	default:
+		break;
 	}
 }
