@@ -31,6 +31,10 @@ void MainGame::Init()
 		backGround[i]->Init(FileIndex.c_str(), 2700, 900);
 	}
 
+	andy = new Andy;
+
+	andy->Init();
+
 	mapFrameTimer = 0;
 }
 
@@ -43,6 +47,8 @@ void MainGame::Update()
 		if (mapFrame == 8) mapFrame = 0;
 	}
 
+	andy->Update();
+
 	InvalidateRect(g_hWnd, NULL, false);
 }
 
@@ -52,13 +58,16 @@ void MainGame::Render(HDC hdc)
 
 	backGround[mapFrame]->Render(hBackBufferDC);
 
+	andy->Render(hBackBufferDC);
+
 	backBuffer->Render(hdc);
 }
 
 void MainGame::Release()
 {
 	SAFE_RELEASE(backBuffer);
-
+	andy->Release();
+	SAFE_RELEASE(andy);
 	for (int i = 0; i < 8; i++)
 	{
 		if (backGround[i])
@@ -94,16 +103,14 @@ LRESULT MainGame::MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lPara
 		break;
 
 	case WM_LBUTTONDOWN:
-		clickedMousePosX = LOWORD(lParam);
-		clickedMousePosY = HIWORD(lParam);
+
 		break;
 	case WM_LBUTTONUP:
 		break;
 	case WM_RBUTTONDOWN:
 		break;
 	case WM_MOUSEMOVE:
-		mousePosX = LOWORD(lParam);
-		mousePosY = HIWORD(lParam);
+
 		break;
 	}
 	return DefWindowProc(hWnd, iMessage, wParam, lParam);

@@ -2,7 +2,7 @@
 #include "Config.h"
 #include	 <Windows.h>
 #include <string>
-
+#include "andy.h"
 static int mapFrame = 0;
 
 class Image;
@@ -30,7 +30,7 @@ private:
 
 	// ÀÌ¿À¸®
 	Iori* iori;
-
+	Andy* andy;
 public:
 	void Init();
 	void Update();

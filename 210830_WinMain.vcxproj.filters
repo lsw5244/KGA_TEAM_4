@@ -48,6 +48,9 @@
     <ClCompile Include="Iori.cpp">
       <Filter>MainGame\KOF_Player</Filter>
     </ClCompile>
+    <ClCompile Include="andy.cpp">
+      <Filter>MainGame\KOF_Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -75,6 +78,9 @@
       <Filter>2D Framework</Filter>
     </ClInclude>
     <ClInclude Include="Iori.h">
+      <Filter>MainGame\KOF_Player</Filter>
+    </ClInclude>
+    <ClInclude Include="andy.h">
       <Filter>MainGame\KOF_Player</Filter>
     </ClInclude>
   </ItemGroup>
