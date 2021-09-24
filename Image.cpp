@@ -1,8 +1,8 @@
 #include "Image.h"
-
+#include "Config.h"
 HRESULT Image::Init(int width, int height)
 {
-	HDC hdc = GetDC(g_hWnd);		
+	HDC hdc = GetDC(g_hWnd);
 
 	// 빈 비트맵 생성
 	imageInfo = new IMAGE_INFO;
@@ -108,15 +108,18 @@ void Image::Release()
 
 void Image::Render(HDC hdc)
 {
-	BitBlt(hdc,				// 복사 목적지 DC
-		0,					// 복사될 비트맵의 시작 위치 x
-		0,					// 복사될 비트맵의 시작 위치 y
-		imageInfo->width,	// 원본 복사할 가로 크기
-		imageInfo->height,	// 원본 복사할 세로 크기
-		imageInfo->hMemDc,	// 원본 DC
-		0,					// 원본 비트맵 복사 시작 위치 x
-		0,					// 원본 비트맵 복사 시작 위치 y
-		SRCCOPY);			// 복사 옵션
+	GdiTransparentBlt(
+		hdc,
+		0,
+		0,
+		WIN_SIZE_X, WIN_SIZE_Y,
+
+		imageInfo->hMemDc,
+		0,
+		0,
+		imageInfo->width, imageInfo->height,
+		RGB(255, 0, 255)
+	);
 }
 
 void Image::Render(HDC hdc, int destX, int destY)
@@ -159,10 +162,10 @@ void Image::Render(HDC hdc, int destX, int destY, int frameX, int frameY)
 			destX - (imageInfo->frameWidth / 2),								// 그릴 화면의 시작지점 x
 			destY - (imageInfo->frameHeight / 2),								// 그릴 화면의 시작지점 x
 			(imageInfo->frameWidth), (imageInfo->frameHeight),			// 화면에 그려질 그림의 크기
-																								
+
 			imageInfo->hMemDc,														// 원본 그림의 DC(그림 원본)	
 			(imageInfo->frameWidth) * frameX,									// 원본 그림에서 복사를 시작 할 위치							
-			(imageInfo->frameHeight) * frameY,										
+			(imageInfo->frameHeight) * frameY,
 			(imageInfo->frameWidth), (imageInfo->frameHeight),			// 원본 그림에서 복사해 올 크기	
 			transColor																		// 제외할 색
 		);

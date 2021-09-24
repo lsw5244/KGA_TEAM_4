@@ -47,7 +47,7 @@ public:
 			currFrameX = 0;
 			currFrameY = 0;
 		};
-	} IMAGE_INFO, *LPIMAGE_INFO;
+	} IMAGE_INFO, * LPIMAGE_INFO;
 
 private:
 	LPIMAGE_INFO imageInfo;

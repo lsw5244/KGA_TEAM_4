@@ -1,6 +1,9 @@
 #pragma once
 #include "Config.h"
 #include	 <Windows.h>
+#include <string>
+
+static int mapFrame = 0;
 
 class Image;
 class Iori;
@@ -22,7 +25,8 @@ private:
 	Image* backBuffer;
 
 	// 배경 이미지
-	Image* backGround;
+	Image* backGround[8] = {};
+	int mapFrameTimer;
 
 	// 이오리
 	Iori* iori;

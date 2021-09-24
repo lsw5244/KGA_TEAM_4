@@ -15,23 +15,34 @@ void MainGame::Init()
 
 	mousePosX = 0;
 	mousePosY = 0;
-	clickedMousePosY = 0; 
+	clickedMousePosY = 0;
 
 	// 백버퍼
 	backBuffer = new Image;
 	backBuffer->Init(WIN_SIZE_X, WIN_SIZE_Y);
 
 	// 배경 이미지
-	backGround = new Image;
-	if (!SUCCEEDED(backGround->Init("Image/mapImage.bmp", 1400, 933)))
+	string FileIndex;
+
+	for (int i = 0; i < 8; i++)
 	{
-		cout << "Image/bin.bmp 파일 로드에 실패했다." << endl;
+		FileIndex = "Image/KOF_BgImg/0000" + to_string(i + 1) + ".bmp";
+		backGround[i] = new Image;
+		backGround[i]->Init(FileIndex.c_str(), 2700, 900);
 	}
 
+	mapFrameTimer = 0;
 }
 
 void MainGame::Update()
 {
+	mapFrameTimer++;
+
+	if (mapFrameTimer % 20 == 0) {
+		mapFrame++;
+		if (mapFrame == 8) mapFrame = 0;
+	}
+
 	InvalidateRect(g_hWnd, NULL, false);
 }
 
@@ -39,7 +50,7 @@ void MainGame::Render(HDC hdc)
 {
 	HDC hBackBufferDC = backBuffer->GetMemDC();
 
-	backGround->Render(hBackBufferDC);
+	backGround[mapFrame]->Render(hBackBufferDC);
 
 	backBuffer->Render(hdc);
 }
@@ -48,8 +59,15 @@ void MainGame::Release()
 {
 	SAFE_RELEASE(backBuffer);
 
-	SAFE_RELEASE(backGround);
-
+	for (int i = 0; i < 8; i++)
+	{
+		if (backGround[i])
+		{
+			backGround[i]->Release();
+			delete backGround[i];
+			backGround[i] = nullptr;
+		}
+	}
 	// 타이머 객체 삭제
 	KillTimer(g_hWnd, 0);
 }
