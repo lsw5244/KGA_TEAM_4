@@ -10,15 +10,9 @@ using namespace std;
 #define WIN_SIZE_X	900
 #define WIN_SIZE_Y	300
 
-#define PI 3.14159265357989
-#define PI2 (3.14159265357989 * 2)
-
-#define DEGREE_TO_RADIAN(x)		(x * PI / 180.0f)
-
 #define SAFE_RELEASE(p)	{ if (p) { p->Release(); delete p; p = nullptr; } }
 
 enum MoveDir { Left, Right, Up, Down };
-enum TankType { Player, Enemy };
-enum AttackType {	SH, BH, SF, BF};
+enum AttackType {SH, BH, SF, BF};
 extern HWND g_hWnd;
 extern HINSTANCE g_hInstance;

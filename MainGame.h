@@ -16,11 +16,6 @@ private:
 	// UI
 	char text[128];
 
-	int mousePosX;
-	int mousePosY;
-	int clickedMousePosX;
-	int clickedMousePosY;
-
 	// ¹é¹öÆÛ
 	Image* backBuffer;
 

@@ -21,6 +21,11 @@ void Andy::Init()
 	pos.y = (WIN_SIZE_Y / 6) * 4;
 	moveSpeed = 10.0f;
 
+	hpimg = new Image;
+	hpimg->Init("Image/Terry/Terry_HP_full.bmp", 360, 40, 1, 1, true, NULL);
+	pos2.x = (WIN_SIZE_X / 5) * 1;
+	pos2.y = (WIN_SIZE_Y / 6);
+
 	shape.left = pos.x - img->GetImageInfo()->frameWidth / 2;
 	shape.right = pos.x + img->GetImageInfo()->frameWidth / 2;
 	shape.bottom = pos.y + img->GetImageInfo()->frameHeight / 2;
@@ -98,7 +103,7 @@ void Andy::Update()
 		if (KeyManager::GetSingleton()->IsStayKeyDown('H'))
 		{
 			frameX = 0;
-			isAtk[AttackType::SF] = true;
+			isAtk[AttackType::BF] = true;
 			currAtk = true;
 		}
 
@@ -132,6 +137,11 @@ void Andy::Render(HDC hdc)
 		img->Render(hdc, pos.x, pos.y, frameX, frameY/*, 300, 300*/);
 	}
 
+	if (hpimg)
+	{
+		hpimg->Render(hdc, pos2.x, pos2.y);
+	}
+
 }
 
 void Andy::Release()
@@ -140,6 +150,11 @@ void Andy::Release()
 	{
 		delete img;
 		img = nullptr;
+	}
+	if (hpimg)
+	{
+		delete hpimg;
+		hpimg = nullptr;
 	}
 }
 

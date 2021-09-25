@@ -7,12 +7,15 @@ class Terry : public GameObject
 {
 private:
 	Image* img;
+	Image* hpimg;
+	Image* countimg;
 	int frameX, frameY;
 	int elapsedCount;
 	int HP;
 	int attackValue;
-	MoveDir moveDir;
+	
 	MoveDir frameDir;
+
 	bool isAlive;
 	bool isAtk[4] = {};
 	bool currAtk;
@@ -26,7 +29,6 @@ public:
 	void AutoMove();
 	void Attack(AttackType type);
 
-	inline void SetMoveDir(MoveDir dir) { this->moveDir = dir; }
 	inline void SetIsAlive(bool isAlive) { this->isAlive = isAlive; }
 	inline bool GetIsAlive() { return this->isAlive; }
 };

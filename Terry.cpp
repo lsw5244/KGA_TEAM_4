@@ -11,6 +11,14 @@ void Terry::Init()
 	pos.x = (WIN_SIZE_X / 5) * 4;
 	pos.y = (WIN_SIZE_Y / 6) * 4;
 	moveSpeed = 10.0f;
+
+	hpimg = new Image;
+	hpimg->Init("Image/Terry/Terry_HP_full.bmp", 360, 40, 1, 1, true, NULL);
+	pos2.x = (WIN_SIZE_X / 5) * 4;
+	pos2.y = (WIN_SIZE_Y / 6);
+
+	countimg = new Image;
+	countimg->Init("Image/Time_Count.bmp", 120, 80, 1, 1, true, NULL);
 }
 
 void Terry::Update()
@@ -115,6 +123,14 @@ void Terry::Render(HDC hdc)
 	{
 		img->Render(hdc, pos.x, pos.y, frameX, frameY);
 	}
+	if (hpimg)
+	{
+		hpimg->Render(hdc, pos2.x, pos2.y);
+	}
+	if (countimg)
+	{
+		countimg->Render(hdc, pos2.x / 1.6, pos2.y);
+	}
 }
 
 void Terry::Release()
@@ -123,6 +139,16 @@ void Terry::Release()
 	{
 		delete img;
 		img = nullptr;
+	}
+	if (hpimg)
+	{
+		delete hpimg;
+		hpimg = nullptr;
+	}
+	if (countimg)
+	{
+		delete countimg;
+		countimg = nullptr;
 	}
 }
 
