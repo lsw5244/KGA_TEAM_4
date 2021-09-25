@@ -55,7 +55,11 @@ void MainGame::Update()
 		terry->Update();
 	}
 
-	andy->Update();
+	if (andy)
+	{
+		andy->Update();
+	}
+	
 
 	InvalidateRect(g_hWnd, NULL, false);
 }

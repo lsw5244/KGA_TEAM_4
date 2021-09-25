@@ -19,7 +19,8 @@ void Terry::Update()
 	{
 		if (KeyManager::GetSingleton()->IsStayKeyDown(VK_NUMPAD6))
 		{
-			img->ReleaseImageInfo();
+			img->Release();
+			img = new Image;
 			img->Init("Image/Terry/Terry_walk.bmp", 2450, 350, 7, 1, true, RGB(255, 0, 255));
 			elapsedCount++;
 			if (elapsedCount >= 4)
@@ -35,7 +36,8 @@ void Terry::Update()
 		}
 		else if (KeyManager::GetSingleton()->IsStayKeyDown(VK_NUMPAD4))
 		{
-			img->ReleaseImageInfo();
+			img->Release();
+			img = new Image;
 			img->Init("Image/Terry/Terry_walk.bmp", 2450, 350, 7, 1, true, RGB(255, 0, 255));
 			elapsedCount++;
 			if (elapsedCount >= 4)
@@ -126,7 +128,8 @@ void Terry::Attack(AttackType type)
 	switch (type)
 	{
 	case SH:
-		img->ReleaseImageInfo();
+		img->Release();
+		img = new Image;
 		img->Init("Image/Terry/Terry_weakpunch.bmp", 2450, 350, 7, 1, true, RGB(255, 0, 255));
 		elapsedCount++;
 		if (elapsedCount >= 4)
@@ -147,7 +150,8 @@ void Terry::Attack(AttackType type)
 		}
 		break;
 	case BH:
-		img->ReleaseImageInfo();
+		img->Release();
+		img = new Image;
 		img->Init("Image/Terry/Terry_strongpunch.bmp", 4200, 350, 12, 1, true, RGB(255, 0, 255));
 
 		elapsedCount++;
@@ -169,7 +173,8 @@ void Terry::Attack(AttackType type)
 		}
 		break;
 	case SF:
-		img->ReleaseImageInfo();
+		img->Release();
+		img = new Image;
 		img->Init("Image/Terry/Terry_weakkick.bmp", 2450, 350, 7, 1, true, RGB(255, 0, 255));
 
 		elapsedCount++;
@@ -191,7 +196,8 @@ void Terry::Attack(AttackType type)
 		}
 		break;
 	case BF:
-		img->ReleaseImageInfo();
+		img->Release();
+		img = new Image;
 		img->Init("Image/Terry/Terry_strongkick.bmp", 2800, 350, 8, 1, true, RGB(255, 0, 255));
 
 		elapsedCount++;

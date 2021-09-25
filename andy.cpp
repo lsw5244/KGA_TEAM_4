@@ -34,7 +34,8 @@ void Andy::Update()
 		// 앞으로 움직이기
 		if (KeyManager::GetSingleton()->IsStayKeyDown('D'))
 		{
-			img->ReleaseImageInfo();
+			img->Release();
+			img = new Image;
 			string imgName = "Image/Andy_walkRight.bmp";
 			img->Init(imgName.c_str(), 2000, 400, 5, 1, true, RGB(255, 0, 255));
 
@@ -52,7 +53,8 @@ void Andy::Update()
 		}
 		else if (KeyManager::GetSingleton()->IsStayKeyDown('A'))
 		{
-			img->ReleaseImageInfo();
+			img->Release();
+			img = new Image;
 			string imgName = "Image/Andy_walkLeft.bmp";
 			img->Init(imgName.c_str(), 2000, 400, 5, 1, true, RGB(255, 0, 255));
 
@@ -72,7 +74,7 @@ void Andy::Update()
 		{
 			AutoMove();
 		}
-		
+
 		if (KeyManager::GetSingleton()->IsStayKeyDown('T'))
 		{
 			frameX = 0;
@@ -101,7 +103,7 @@ void Andy::Update()
 		}
 
 	}
-	else	
+	else
 	{
 		if (isAtk[AttackType::SH])
 		{
@@ -143,6 +145,8 @@ void Andy::Release()
 
 void Andy::AutoMove()
 {
+	img->Release();
+	img = new Image;
 	string imgName = "Image/Andy_stand.bmp";
 	img->Init(imgName.c_str(), 2800, 400, 7, 1, true, RGB(255, 0, 255));
 	elapsedCount++;
@@ -172,10 +176,11 @@ void Andy::AutoMove()
 void Andy::Attack(AttackType type)
 {
 	string imgName;
+	img->Release();
+	img = new Image;
 	switch (type)
 	{
 	case SH:
-		img->ReleaseImageInfo();
 		imgName = "Image/Andy_smallHand.bmp";
 		img->Init(imgName.c_str(), 3600, 400, 9, 1, true, RGB(255, 0, 255));
 		elapsedCount++;
@@ -197,7 +202,6 @@ void Andy::Attack(AttackType type)
 		}
 		break;
 	case BH:
-		img->ReleaseImageInfo();
 		imgName = "Image/Andy_bigHand.bmp";
 		img->Init(imgName.c_str(), 4000, 400, 10, 1, true, RGB(255, 0, 255));
 		elapsedCount++;
@@ -219,7 +223,6 @@ void Andy::Attack(AttackType type)
 		}
 		break;
 	case SF:
-		img->ReleaseImageInfo();
 		imgName = "Image/Andy_smallFoot.bmp";
 		img->Init(imgName.c_str(), 3200, 400, 8, 1, true, RGB(255, 0, 255));
 
@@ -242,7 +245,6 @@ void Andy::Attack(AttackType type)
 		}
 		break;
 	case BF:
-		img->ReleaseImageInfo();
 		imgName = "Image/Andy_bigFoot.bmp";
 		img->Init(imgName.c_str(), 5600, 400, 14, 1, true, RGB(255, 0, 255));
 
