@@ -51,6 +51,10 @@ void Terry::Update()
 				elapsedCount = 0;
 			}
 		}
+		else
+		{
+			AutoMove();
+		}
 
 		// ¾à¹ß
 		if (KeyManager::GetSingleton()->IsOnceKeyDown('K'))
@@ -119,6 +123,35 @@ void Terry::Release()
 	{
 		delete img;
 		img = nullptr;
+	}
+}
+
+void Terry::AutoMove()
+{
+	img->Release();
+	img = new Image;
+	img->Init("Image/Terry/Terry_breath.bmp", 1750, 350, 5, 1, true, RGB(255, 0, 255));
+	elapsedCount++;
+	if (elapsedCount >= 8)
+	{
+		if (frameX <= 0)
+		{
+			frameDir = MoveDir::Right;
+		}
+		if (frameX >= 4)
+		{
+			frameDir = MoveDir::Left;
+		}
+		switch (frameDir)
+		{
+		case MoveDir::Right:
+			frameX++;
+			break;
+		case MoveDir::Left:
+			frameX--;
+			break;
+		}
+		elapsedCount = 0;
 	}
 }
 
