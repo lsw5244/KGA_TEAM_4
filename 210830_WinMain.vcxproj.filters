@@ -48,7 +48,7 @@
     <ClCompile Include="Iori.cpp">
       <Filter>MainGame\KOF_Player</Filter>
     </ClCompile>
-    <ClCompile Include="andy.cpp">
+    <ClCompile Include="Andy.cpp">
       <Filter>MainGame\KOF_Player</Filter>
     </ClCompile>
     <ClCompile Include="Terry.cpp">
@@ -83,7 +83,7 @@
     <ClInclude Include="Iori.h">
       <Filter>MainGame\KOF_Player</Filter>
     </ClInclude>
-    <ClInclude Include="andy.h">
+    <ClInclude Include="Andy.h">
       <Filter>MainGame\KOF_Player</Filter>
     </ClInclude>
     <ClInclude Include="Terry.h">

@@ -139,7 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="andy.cpp" />
+    <ClCompile Include="Andy.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="Iori.cpp" />
@@ -150,7 +150,7 @@
     <ClCompile Include="Terry.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="andy.h" />
+    <ClInclude Include="Andy.h" />
     <ClInclude Include="CommonFunction.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="GameObject.h" />

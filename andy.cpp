@@ -2,16 +2,10 @@
 #include "Image.h"
 #include "KeyManager.h"
 #include "Config.h"
-#include "Terry.h"
 
 void Andy::Init()
 {
 	img = new Image;
-
-	enemy = new Terry;
-	enemyPos.x = 0;
-	enemyPos.y = 0;
-
 	string imgName = "Image/Andy_stand.bmp";
 	img->Init(imgName.c_str(), 1330, 190, 7, 1, true, RGB(255, 0, 255));
 	moveDir = MoveDir::Right;
@@ -21,133 +15,156 @@ void Andy::Init()
 	frameY = 0;
 	HP = 100;
 	attackValue = 10;
-	charX = img->GetImageInfo()->frameWidth - 280; // 80
 
 	isAlive = true;
 	pos.x = (WIN_SIZE_X / 5) * 1;
 	pos.y = (WIN_SIZE_Y / 6) * 4;
 	moveSpeed = 10.0f;
 
+	isHit = false;
 	hpimg = new Image;
 	hpimg->Init("Image/Terry/Terry_HP_full.bmp", 360, 40, 1, 1, true, NULL);
 	pos2.x = (WIN_SIZE_X / 5) * 1;
 	pos2.y = (WIN_SIZE_Y / 6);
 
-	shape.left = pos.x - img->GetImageInfo()->frameWidth / 2;
-	shape.right = pos.x + img->GetImageInfo()->frameWidth / 2;
-	shape.bottom = pos.y + img->GetImageInfo()->frameHeight / 2;
-	shape.top = pos.y - img->GetImageInfo()->frameHeight / 2;
+	koimg = new Image;
+	koimg->Init("Image/KO_Andy.bmp", 300, 100, 1, 1, true, RGB(255, 0, 255));
+	pos3.x = (WIN_SIZE_X / 2);
+	pos3.y = (WIN_SIZE_Y / 2);
+
+	enemy = new Terry;
+	enemyPos.x = 0;
+	enemyPos.y = 0;
+	charX = img->GetImageInfo()->frameWidth - 280; // 80
+
 }
 
 void Andy::Update()
 {
-	if (currAtk == false)
+	if (isAlive == false)
 	{
-		// 앞으로 움직이기
-		if (KeyManager::GetSingleton()->IsStayKeyDown('D'))
-		{
-			if (enemy)
-			{
-				enemyPos.x = enemy->GetPos().x;
-			}
-			img->Release();
-			img = new Image;
-			string imgName = "Image/Andy_walkRight.bmp";
-			img->Init(imgName.c_str(), 2000, 400, 5, 1, true, RGB(255, 0, 255));
+		return;
+	}
 
-			elapsedCount++;
-			if (elapsedCount >= 4)
-			{
-				frameX++;
-				if (pos.x - (charX / 2) < enemyPos.x + (charX / 2)) {
-					pos.x += moveSpeed;
-				}
-				if (frameX >= 5)
-				{
-					frameX = 0;
-				}
-				elapsedCount = 0;
-			}
-		}
-		else if (KeyManager::GetSingleton()->IsStayKeyDown('A'))
+	if (enemyCurrAtk && (enemyPos.x - pos.x < 110) && !isHit)
+	{
+		isHit = true;
+	}
+	if (isHit == true)
+	{
+		Damaged();
+	}
+	else if (!isHit)
+	{
+		if (currAtk == false)
 		{
-			img->Release();
-			img = new Image;
-			string imgName = "Image/Andy_walkLeft.bmp";
-			img->Init(imgName.c_str(), 2000, 400, 5, 1, true, RGB(255, 0, 255));
-
-			elapsedCount++;
-			if (elapsedCount >= 4)
+			// 앞으로 움직이기
+			if (KeyManager::GetSingleton()->IsStayKeyDown('D'))
 			{
-				frameX--;
-				if (pos.x + (charX / 2) > 0) {
-					pos.x -= moveSpeed;
-				}
-				if (frameX <= -1)
+				img->Release();
+				img = new Image;
+				string imgName = "Image/Andy_walkRight.bmp";
+				img->Init(imgName.c_str(), 2000, 400, 5, 1, true, RGB(255, 0, 255));
+
+				elapsedCount++;
+				if (elapsedCount >= 8)
 				{
-					frameX = 4;
+					frameX++;
+
+					if (pos.x - (charX / 2) < enemyPos.x + (charX / 2)) 
+					{
+						pos.x += moveSpeed;
+					}
+
+					if (frameX >= 5)
+					{
+						frameX = 0;
+					}
+					elapsedCount = 0;
 				}
-				elapsedCount = 0;
+			}
+			else if (KeyManager::GetSingleton()->IsStayKeyDown('A'))
+			{
+				img->Release();
+				img = new Image;
+				string imgName = "Image/Andy_walkLeft.bmp";
+				img->Init(imgName.c_str(), 2000, 400, 5, 1, true, RGB(255, 0, 255));
+
+				elapsedCount++;
+				if (elapsedCount >= 8)
+				{
+					frameX--;
+
+					if (pos.x + (charX / 2) > 0) 
+					{
+						pos.x -= moveSpeed;
+					}
+
+					if (frameX <= -1)
+					{
+						frameX = 4;
+					}
+					elapsedCount = 0;
+				}
+			}
+			else
+			{
+				if (HP && isAlive)
+				{
+					AutoMove();
+				}
+			}
+
+			if (KeyManager::GetSingleton()->IsStayKeyDown('T'))
+			{
+				frameX = 0;
+				isAtk[AttackType::SH] = true;
+				currAtk = true;
+			}
+			if (KeyManager::GetSingleton()->IsStayKeyDown('Y'))
+			{
+				frameX = 0;
+				isAtk[AttackType::BH] = true;
+				currAtk = true;
+			}
+			if (KeyManager::GetSingleton()->IsStayKeyDown('G'))
+			{
+				frameX = 0;
+				isAtk[AttackType::SF] = true;
+				currAtk = true;
+			}
+			if (KeyManager::GetSingleton()->IsStayKeyDown('H'))
+			{
+				frameX = 0;
+				isAtk[AttackType::BF] = true;
+				currAtk = true;
 			}
 		}
 		else
 		{
-			AutoMove();
-		}
-
-		if (KeyManager::GetSingleton()->IsStayKeyDown('T'))
-		{
-			frameX = 0;
-			isAtk[AttackType::SH] = true;
-			currAtk = true;
-
-		}
-		if (KeyManager::GetSingleton()->IsStayKeyDown('Y'))
-		{
-			frameX = 0;
-			isAtk[AttackType::BH] = true;
-			currAtk = true;
-		}
-		if (KeyManager::GetSingleton()->IsStayKeyDown('G'))
-		{
-			frameX = 0;
-			isAtk[AttackType::SF] = true;
-			currAtk = true;
-
-		}
-		if (KeyManager::GetSingleton()->IsStayKeyDown('H'))
-		{
-			frameX = 0;
-			isAtk[AttackType::BF] = true;
-			currAtk = true;
-		}
-
-	}
-	else
-	{
-		if (isAtk[AttackType::SH])
-		{
-			Attack(SH);
-		}
-		else if (isAtk[AttackType::SF])
-		{
-			Attack(SF);
-		}
-		else if (isAtk[AttackType::BH])
-		{
-			Attack(BH);
-		}
-		else if (isAtk[AttackType::BF])
-		{
-			Attack(BF);
+			if (isAtk[AttackType::SH])
+			{
+				Attack(SH);
+			}
+			else if (isAtk[AttackType::SF])
+			{
+				Attack(SF);
+			}
+			else if (isAtk[AttackType::BH])
+			{
+				Attack(BH);
+			}
+			else if (isAtk[AttackType::BF])
+			{
+				Attack(BF);
+			}
 		}
 	}
-
 }
 
 void Andy::Render(HDC hdc)
 {
-	if (img && isAlive)
+	if (img)
 	{
 		img->Render(hdc, pos.x, pos.y, frameX, frameY/*, 300, 300*/);
 	}
@@ -156,7 +173,6 @@ void Andy::Render(HDC hdc)
 	{
 		hpimg->Render(hdc, pos2.x, pos2.y);
 	}
-
 }
 
 void Andy::Release()
@@ -171,7 +187,6 @@ void Andy::Release()
 		delete hpimg;
 		hpimg = nullptr;
 	}
-
 }
 
 void Andy::AutoMove()
@@ -299,5 +314,52 @@ void Andy::Attack(AttackType type)
 		break;
 	default:
 		break;
+	}
+}
+void Andy::Damaged()
+{
+	static bool getDamage = false;
+
+	img->Release();
+	img = new Image;
+	img->Init("Image/Andy_dead.bmp", 2100, 350, 6, 1, true, RGB(255, 0, 255));
+	elapsedCount++;
+	if (HP && isAlive && HP > 0)
+	{
+		if (elapsedCount >= 15)
+		{
+			frameX++;
+			elapsedCount = 0;
+			if (frameX >= 2)
+			{
+				isHit = false;
+				frameX = 0;
+				getDamage = false;
+				return;
+			}
+			if (getDamage == false)
+			{
+				getDamage = true;
+				HP -= attackValue;
+			}
+			return;
+		}
+	}
+	else if (HP <= 0)
+	{
+		if (elapsedCount >= 30)
+		{
+			frameX++;
+			pos.x -= 70;
+			elapsedCount = 0;
+			if (frameX >= 6)
+			{
+				isHit = false;
+				frameX = 5;
+				isAlive = false;
+				return;
+			}
+			return;
+		}
 	}
 }

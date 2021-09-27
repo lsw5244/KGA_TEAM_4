@@ -1,2 +1,6 @@
-﻿  MainGame.cpp
-  210830_WinMain.vcxproj -> C:\Users\이성우\Desktop\KGA_TEAM_4\x64\Debug\210830_WinMain.exe
+﻿  Andy.cpp
+C:\Users\PC1\Desktop\KGA_TEAM_4\Andy.cpp(170,30): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\PC1\Desktop\KGA_TEAM_4\Andy.cpp(170,23): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\PC1\Desktop\KGA_TEAM_4\Andy.cpp(175,34): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\PC1\Desktop\KGA_TEAM_4\Andy.cpp(175,26): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  210830_WinMain.vcxproj -> C:\Users\PC1\Desktop\KGA_TEAM_4\x64\Debug\210830_WinMain.exe

@@ -34,8 +34,14 @@ void MainGame::Init()
 	terry = new Terry;
 	terry->Init();
 
-	terry->SetEnemy(andy);
-	andy->SetEnemy(terry);
+	andy->SetEnemyPos(terry->GetPos());
+	andy->SetEnemyCurrAtk(terry->GetCurrAtk());
+	andy->SetTerry(terry);
+
+	terry->SetEnemyPos(andy->GetPos());
+	terry->SetEnemyCurrAtk(andy->GetCurrAtk());
+	terry->SetEnemyHP(andy->GetHP());
+
 	mapFrameTimer = 0;
 }
 
@@ -43,18 +49,23 @@ void MainGame::Update()
 {
 	mapFrameTimer++;
 
-	if (mapFrameTimer % 20 == 0) {
+	if (mapFrameTimer % 20 == 0)
+	{
 		mapFrame++;
 		if (mapFrame == 8) mapFrame = 0;
 	}
 
 	if (terry)
 	{
+		terry->SetEnemyPos(andy->GetPos());
+		terry->SetEnemyCurrAtk(andy->GetCurrAtk());
 		terry->Update();
 	}
 
 	if (andy)
 	{
+		andy->SetEnemyPos(terry->GetPos());
+		andy->SetEnemyCurrAtk(terry->GetCurrAtk());
 		andy->Update();
 	}
 
@@ -78,6 +89,7 @@ void MainGame::Render(HDC hdc)
 void MainGame::Release()
 {
 	SAFE_RELEASE(backBuffer);
+	andy->Release();
 	SAFE_RELEASE(andy);
 	SAFE_RELEASE(terry);
 
@@ -92,7 +104,6 @@ void MainGame::Release()
 	}
 	// 타이머 객체 삭제
 	KillTimer(g_hWnd, 0);
-	KillTimer(g_hWnd, 1);
 }
 
 
