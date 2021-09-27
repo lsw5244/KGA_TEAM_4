@@ -1,6 +1,6 @@
 #pragma once
 #include "Config.h"
-#include	 <Windows.h>
+#include <Windows.h>
 #include <string>
 #include "andy.h"
 static int mapFrame = 0;

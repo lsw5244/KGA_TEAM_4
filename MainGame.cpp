@@ -34,6 +34,8 @@ void MainGame::Init()
 	terry = new Terry;
 	terry->Init();
 
+	terry->SetEnemy(andy);
+	andy->SetEnemy(terry);
 	mapFrameTimer = 0;
 }
 
@@ -55,7 +57,7 @@ void MainGame::Update()
 	{
 		andy->Update();
 	}
-	
+
 
 	InvalidateRect(g_hWnd, NULL, false);
 }
@@ -76,7 +78,6 @@ void MainGame::Render(HDC hdc)
 void MainGame::Release()
 {
 	SAFE_RELEASE(backBuffer);
-	andy->Release();
 	SAFE_RELEASE(andy);
 	SAFE_RELEASE(terry);
 
@@ -91,6 +92,7 @@ void MainGame::Release()
 	}
 	// 타이머 객체 삭제
 	KillTimer(g_hWnd, 0);
+	KillTimer(g_hWnd, 1);
 }
 
 

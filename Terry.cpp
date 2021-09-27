@@ -1,16 +1,24 @@
 #include "Terry.h"
 #include "Image.h"
 #include "KeyManager.h"
+#include "Andy.h";
 
 void Terry::Init()
 {
 	img = new Image;
+	//enemy = new Andy;
+	
+	enemyPos.x = 0;
+	enemyPos.y = 0;
+
 	img->Init("Image/Terry/Terry_walk.bmp", 2450, 350, 7, 1, true, RGB(255, 0, 255));
 	frameX = frameY = 0;
 	elapsedCount = 0;
 	pos.x = (WIN_SIZE_X / 5) * 4;
 	pos.y = (WIN_SIZE_Y / 6) * 4;
 	moveSpeed = 10.0f;
+	charX = img->GetImageInfo()->frameWidth - 270; // 80
+
 
 	hpimg = new Image;
 	hpimg->Init("Image/Terry/Terry_HP_full.bmp", 360, 40, 1, 1, true, NULL);
@@ -34,7 +42,10 @@ void Terry::Update()
 			if (elapsedCount >= 4)
 			{
 				frameX++;
-				pos.x += moveSpeed;
+				if (pos.x + (charX / 2) < WIN_SIZE_X) {
+					pos.x += moveSpeed;
+				}
+
 				if (frameX >= 7)
 				{
 					frameX = 0;
@@ -44,6 +55,10 @@ void Terry::Update()
 		}
 		else if (KeyManager::GetSingleton()->IsStayKeyDown(VK_NUMPAD4))
 		{
+			if (enemy)
+			{
+				enemyPos.x = enemy->GetPos().x;
+			}
 			img->Release();
 			img = new Image;
 			img->Init("Image/Terry/Terry_walk.bmp", 2450, 350, 7, 1, true, RGB(255, 0, 255));
@@ -51,7 +66,10 @@ void Terry::Update()
 			if (elapsedCount >= 4)
 			{
 				frameX--;
-				pos.x -= moveSpeed;
+				if (pos.x - (charX / 2) > enemyPos.x + (charX / 2)) {
+					pos.x -= moveSpeed;
+				}
+
 				if (frameX < 0)
 				{
 					frameX = 6;
@@ -77,7 +95,6 @@ void Terry::Update()
 			frameX = 0;
 			isAtk[AttackType::SH] = true;
 			currAtk = true;
-
 		}
 		// 강발
 		if (KeyManager::GetSingleton()->IsOnceKeyDown('L'))
@@ -85,7 +102,6 @@ void Terry::Update()
 			frameX = 0;
 			isAtk[AttackType::BF] = true;
 			currAtk = true;
-
 		}
 		// 강손
 		if (KeyManager::GetSingleton()->IsOnceKeyDown('O'))
@@ -100,6 +116,7 @@ void Terry::Update()
 	{
 		if (isAtk[AttackType::SH])
 		{
+			
 			Attack(SH);
 		}
 		else if (isAtk[AttackType::SF])
@@ -135,6 +152,10 @@ void Terry::Render(HDC hdc)
 
 void Terry::Release()
 {
+	//delete enemy;
+	//enemy = nullptr;
+
+
 	if (img)
 	{
 		delete img;
@@ -150,6 +171,7 @@ void Terry::Release()
 		delete countimg;
 		countimg = nullptr;
 	}
+
 }
 
 void Terry::AutoMove()

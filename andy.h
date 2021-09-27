@@ -5,6 +5,7 @@
 
 enum MoveDir;
 class Image;
+class Terry;
 
 class Andy : public GameObject
 {
@@ -19,6 +20,10 @@ private:
 	MoveDir frameDir;
 	bool isAlive;
 
+	Terry* enemy;
+	POINTFLOAT enemyPos;
+	int charX;
+
 	bool isAtk[4] = {};
 	bool currAtk;
 public:
@@ -26,6 +31,9 @@ public:
 	void Update();
 	void Render(HDC hdc);
 	void Release();
+
+	template <typename T>
+	void SetEnemy(T* _enemy) { this->enemy = _enemy; }
 
 	inline RECT GetRect() { return this->shape; }
 	inline void SetIsAlive(bool isAlive) { this->isAlive = isAlive; }

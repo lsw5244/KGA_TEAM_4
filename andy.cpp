@@ -2,10 +2,16 @@
 #include "Image.h"
 #include "KeyManager.h"
 #include "Config.h"
+#include "Terry.h"
 
 void Andy::Init()
 {
 	img = new Image;
+
+	enemy = new Terry;
+	enemyPos.x = 0;
+	enemyPos.y = 0;
+
 	string imgName = "Image/Andy_stand.bmp";
 	img->Init(imgName.c_str(), 1330, 190, 7, 1, true, RGB(255, 0, 255));
 	moveDir = MoveDir::Right;
@@ -15,6 +21,7 @@ void Andy::Init()
 	frameY = 0;
 	HP = 100;
 	attackValue = 10;
+	charX = img->GetImageInfo()->frameWidth - 280; // 80
 
 	isAlive = true;
 	pos.x = (WIN_SIZE_X / 5) * 1;
@@ -39,6 +46,10 @@ void Andy::Update()
 		// 앞으로 움직이기
 		if (KeyManager::GetSingleton()->IsStayKeyDown('D'))
 		{
+			if (enemy)
+			{
+				enemyPos.x = enemy->GetPos().x;
+			}
 			img->Release();
 			img = new Image;
 			string imgName = "Image/Andy_walkRight.bmp";
@@ -48,7 +59,9 @@ void Andy::Update()
 			if (elapsedCount >= 4)
 			{
 				frameX++;
-				pos.x += moveSpeed;
+				if (pos.x - (charX / 2) < enemyPos.x + (charX / 2)) {
+					pos.x += moveSpeed;
+				}
 				if (frameX >= 5)
 				{
 					frameX = 0;
@@ -67,7 +80,9 @@ void Andy::Update()
 			if (elapsedCount >= 4)
 			{
 				frameX--;
-				pos.x -= moveSpeed;
+				if (pos.x + (charX / 2) > 0) {
+					pos.x -= moveSpeed;
+				}
 				if (frameX <= -1)
 				{
 					frameX = 4;
@@ -156,6 +171,7 @@ void Andy::Release()
 		delete hpimg;
 		hpimg = nullptr;
 	}
+
 }
 
 void Andy::AutoMove()
