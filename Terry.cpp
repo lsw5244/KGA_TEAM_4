@@ -1,4 +1,4 @@
-#include "Terry.h"
+ï»¿#include "Terry.h"
 #include "Image.h"
 #include "KeyManager.h"
 #include "Andy.h"
@@ -45,6 +45,7 @@ void Terry::Update()
 	if (enemyCurrAtk && (pos.x - enemyPos.x < 110) && !isHit)
 	{
 		isHit = true;
+		frameX = 0;
 	}
 	if (isHit == true)
 	{
@@ -64,7 +65,7 @@ void Terry::Update()
 				{
 					frameX++;
 
-					if (pos.x + (charX / 2) < WIN_SIZE_X) 
+					if (pos.x + (charX / 2) < WIN_SIZE_X)
 					{
 						pos.x += moveSpeed;
 					}
@@ -106,21 +107,21 @@ void Terry::Update()
 				}
 			}
 
-			// ¾à¹ß
+			// Â¾Ã Â¹ÃŸ
 			if (KeyManager::GetSingleton()->IsOnceKeyDown('K'))
 			{
 				frameX = 0;
 				isAtk[AttackType::SF] = true;
 				currAtk = true;
 			}
-			// ¾à¼Õ
+			// Â¾Ã Â¼Ã•
 			if (KeyManager::GetSingleton()->IsOnceKeyDown('I'))
 			{
 				frameX = 0;
 				isAtk[AttackType::SH] = true;
 				currAtk = true;
 			}
-			// °­¹ß
+			// Â°Â­Â¹ÃŸ
 			if (KeyManager::GetSingleton()->IsOnceKeyDown('L'))
 			{
 				frameX = 0;
@@ -128,7 +129,7 @@ void Terry::Update()
 				currAtk = true;
 			}
 
-			// °­¼Õ
+			// Â°Â­Â¼Ã•
 			if (KeyManager::GetSingleton()->IsOnceKeyDown('O'))
 			{
 				frameX = 0;
@@ -326,7 +327,7 @@ void Terry::Attack(AttackType type)
 		img->Init("Image/Terry/Terry_strongkick.bmp", 2800, 350, 8, 1, true, RGB(255, 0, 255));
 
 		elapsedCount++;
-		if (elapsedCount >= 4)
+		if (elapsedCount >= 2)
 		{
 			if (frameX == 7)
 			{
@@ -397,4 +398,3 @@ void Terry::Damaged()
 		}
 	}
 }
-

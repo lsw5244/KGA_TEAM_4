@@ -51,6 +51,7 @@ void Andy::Update()
 	if (enemyCurrAtk && (enemyPos.x - pos.x < 110) && !isHit)
 	{
 		isHit = true;
+		frameX = 0;
 	}
 	if (isHit == true)
 	{
@@ -256,7 +257,7 @@ void Andy::Attack(AttackType type)
 		imgName = "Image/Andy_smallHand.bmp";
 		img->Init(imgName.c_str(), 3600, 400, 9, 1, true, RGB(255, 0, 255));
 		elapsedCount++;
-		if (elapsedCount >= 4)
+		if (elapsedCount >= 2)
 		{
 			if (frameX == 8)
 			{
@@ -277,7 +278,7 @@ void Andy::Attack(AttackType type)
 		imgName = "Image/Andy_bigHand.bmp";
 		img->Init(imgName.c_str(), 4000, 400, 10, 1, true, RGB(255, 0, 255));
 		elapsedCount++;
-		if (elapsedCount >= 4)
+		if (elapsedCount >= 2)
 		{
 			if (frameX == 9)
 			{
@@ -299,7 +300,7 @@ void Andy::Attack(AttackType type)
 		img->Init(imgName.c_str(), 3200, 400, 8, 1, true, RGB(255, 0, 255));
 
 		elapsedCount++;
-		if (elapsedCount >= 4)
+		if (elapsedCount >= 3)
 		{
 			if (frameX == 7)
 			{
@@ -321,7 +322,7 @@ void Andy::Attack(AttackType type)
 		img->Init(imgName.c_str(), 5600, 400, 14, 1, true, RGB(255, 0, 255));
 
 		elapsedCount++;
-		if (elapsedCount >= 4)
+		if (elapsedCount >= 2)
 		{
 			if (frameX == 13)
 			{

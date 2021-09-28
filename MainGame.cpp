@@ -1,14 +1,12 @@
 #include "MainGame.h"
 #include "Singleton.h"
 #include "KeyManager.h"
-#include "SceneManager.h"
 #include "Image.h"
 #include "Terry.h"
 
 void MainGame::Init()
 {
 	KeyManager::GetSingleton()->Init();
-	SceneManager::GetSingleton();
 
 	// 타이머 셋팅
 	hTimer = (HANDLE)SetTimer(g_hWnd, 0, 10, NULL);
