@@ -1,11 +1,11 @@
 #include <Windows.h>
 #include "MainGame.h"
-
-#ifdef UNICODE
-#pragma comment(linker, "/entry:wWinMainCRTStartup /subsystem:console")
-#else
-#pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
-#endif
+//
+//#ifdef UNICODE
+//#pragma comment(linker, "/entry:wWinMainCRTStartup /subsystem:console")
+//#else
+//#pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
+//#endif
 
 // 전역변수
 HINSTANCE	g_hInstance;
