@@ -8,7 +8,6 @@ void Andy::Init()
 	img = new Image;
 	string imgName = "Image/Andy_stand.bmp";
 	img->Init(imgName.c_str(), 1330, 190, 7, 1, true, RGB(255, 0, 255));
-	moveDir = MoveDir::Right;
 	frameDir = MoveDir::Right;
 	elapsedCount = 0;
 	frameX = 0;
@@ -26,6 +25,9 @@ void Andy::Init()
 	hpimg->Init("Image/Terry/Terry_HP_full.bmp", 360, 40, 1, 1, true, NULL);
 	pos2.x = (WIN_SIZE_X / 5) * 1;
 	pos2.y = (WIN_SIZE_Y / 6);
+
+	hp2img = new Image;
+	hp2img->Init("Image/Andy_HP_red.bmp", 360, 40, 1, 1, true, NULL);
 
 	koimg = new Image;
 	koimg->Init("Image/KO_Andy.bmp", 300, 100, 1, 1, true, RGB(255, 0, 255));
@@ -115,25 +117,25 @@ void Andy::Update()
 				}
 			}
 
-			if (KeyManager::GetSingleton()->IsStayKeyDown('T'))
+			if (KeyManager::GetSingleton()->IsOnceKeyDown('T'))
 			{
 				frameX = 0;
 				isAtk[AttackType::SH] = true;
 				currAtk = true;
 			}
-			if (KeyManager::GetSingleton()->IsStayKeyDown('Y'))
+			if (KeyManager::GetSingleton()->IsOnceKeyDown('Y'))
 			{
 				frameX = 0;
 				isAtk[AttackType::BH] = true;
 				currAtk = true;
 			}
-			if (KeyManager::GetSingleton()->IsStayKeyDown('G'))
+			if (KeyManager::GetSingleton()->IsOnceKeyDown('G'))
 			{
 				frameX = 0;
 				isAtk[AttackType::SF] = true;
 				currAtk = true;
 			}
-			if (KeyManager::GetSingleton()->IsStayKeyDown('H'))
+			if (KeyManager::GetSingleton()->IsOnceKeyDown('H'))
 			{
 				frameX = 0;
 				isAtk[AttackType::BF] = true;
@@ -164,6 +166,8 @@ void Andy::Update()
 
 void Andy::Render(HDC hdc)
 {
+	float temp = (hp2img->GetImageInfo()->width / 100.0f) * (100.f - HP);
+
 	if (img)
 	{
 		img->Render(hdc, pos.x, pos.y, frameX, frameY/*, 300, 300*/);
@@ -172,6 +176,18 @@ void Andy::Render(HDC hdc)
 	if (hpimg)
 	{
 		hpimg->Render(hdc, pos2.x, pos2.y);
+	}
+	if (hp2img)
+	{
+		hp2img->Render(hdc, (pos2.x - (float)(hpimg->GetImageInfo()->width)) + temp
+			, pos2.y);
+	}
+	if (koimg)
+	{
+		if (HP == 0)
+		{
+			koimg->Render(hdc, pos3.x, pos3.y);
+		}
 	}
 }
 
@@ -186,6 +202,16 @@ void Andy::Release()
 	{
 		delete hpimg;
 		hpimg = nullptr;
+	}
+	if (hp2img)
+	{
+		delete hp2img;
+		hp2img = nullptr;
+	}
+	if (koimg)
+	{
+		delete koimg;
+		koimg = nullptr;
 	}
 }
 

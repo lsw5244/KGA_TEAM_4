@@ -3,7 +3,6 @@
 #include "KeyManager.h"
 #include "SceneManager.h"
 #include "Image.h"
-#include "Iori.h"
 #include "Terry.h"
 
 void MainGame::Init()

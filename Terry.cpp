@@ -31,7 +31,7 @@ void Terry::Init()
 
 	hp2img = new Image;
 	hp2img->Init("Image/Terry/Terry_HP_red.bmp", 360, 40, 1, 1, true, NULL);
-	pos4.x = (WIN_SIZE_X / 5) * 8;
+	pos4.x = (WIN_SIZE_X / 5) * 4 + 360;
 	pos4.y = (WIN_SIZE_Y / 6);
 
 	enemy = new Andy;
@@ -163,6 +163,7 @@ void Terry::Update()
 
 void Terry::Render(HDC hdc)
 {
+	float temp = (hp2img->GetImageInfo()->width / 100.0f) * (100.f - HP);
 
 	if (img)
 	{
@@ -174,19 +175,20 @@ void Terry::Render(HDC hdc)
 	}
 	if (hp2img)
 	{
-		hp2img->Render(hdc, pos2.x * 2, pos2.y);
+		hp2img->Render(hdc, (pos2.x + (float)(hpimg->GetImageInfo()->width)) - temp
+			, pos2.y);
 	}
 	if (countimg)
 	{
 		countimg->Render(hdc, pos2.x / 1.6, pos2.y);
 	}
-	/*if (koimg)
+	if (koimg)
 	{
 		if (HP == 0)
 		{
 			koimg->Render(hdc, pos3.x, pos3.y);
 		}
-	}*/
+	}
 }
 
 void Terry::Release()
@@ -362,7 +364,7 @@ void Terry::Damaged()
 		{
 			frameX++;
 			elapsedCount = 0;
-			if (frameX >= 3)
+			if (frameX >= 2)
 			{
 				isHit = false;
 				frameX = 0;
@@ -374,8 +376,10 @@ void Terry::Damaged()
 				getDamage = true;
 				HP -= attackValue;
 			}
+
 			return;
 		}
+
 	}
 	else if (HP <= 0)
 	{

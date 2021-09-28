@@ -45,14 +45,14 @@
     <ClCompile Include="Image.cpp">
       <Filter>2D Framework</Filter>
     </ClCompile>
-    <ClCompile Include="Iori.cpp">
-      <Filter>MainGame\KOF_Player</Filter>
-    </ClCompile>
     <ClCompile Include="Andy.cpp">
       <Filter>MainGame\KOF_Player</Filter>
     </ClCompile>
     <ClCompile Include="Terry.cpp">
       <Filter>MainGame\KOF_Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Character.cpp">
+      <Filter>2D Framework</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -80,14 +80,14 @@
     <ClInclude Include="Image.h">
       <Filter>2D Framework</Filter>
     </ClInclude>
-    <ClInclude Include="Iori.h">
-      <Filter>MainGame\KOF_Player</Filter>
-    </ClInclude>
     <ClInclude Include="Andy.h">
       <Filter>MainGame\KOF_Player</Filter>
     </ClInclude>
     <ClInclude Include="Terry.h">
       <Filter>MainGame\KOF_Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Character.h">
+      <Filter>2D Framework</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
