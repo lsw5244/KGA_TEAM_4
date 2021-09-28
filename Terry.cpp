@@ -258,7 +258,7 @@ void Terry::Attack(AttackType type)
 		img = new Image;
 		img->Init("Image/Terry/Terry_weakpunch.bmp", 2450, 350, 7, 1, true, RGB(255, 0, 255));
 		elapsedCount++;
-		if (elapsedCount >= 4)
+		if (elapsedCount >= 3)
 		{
 			if (frameX == 6)
 			{
@@ -281,7 +281,7 @@ void Terry::Attack(AttackType type)
 		img->Init("Image/Terry/Terry_strongpunch.bmp", 4200, 350, 12, 1, true, RGB(255, 0, 255));
 
 		elapsedCount++;
-		if (elapsedCount >= 4)
+		if (elapsedCount >= 2)
 		{
 			if (frameX == 11)
 			{
@@ -327,7 +327,7 @@ void Terry::Attack(AttackType type)
 		img->Init("Image/Terry/Terry_strongkick.bmp", 2800, 350, 8, 1, true, RGB(255, 0, 255));
 
 		elapsedCount++;
-		if (elapsedCount >= 2)
+		if (elapsedCount >= 3)
 		{
 			if (frameX == 7)
 			{
@@ -358,28 +358,26 @@ void Terry::Damaged()
 	img->Init("Image/Terry/Terry_damaged.bmp", 2100, 350, 6, 1, true, RGB(255, 0, 255));
 	elapsedCount++;
 	if (HP && isAlive && HP > 0)
-	{
-		if (elapsedCount >= 15)
-		{
-			frameX++;
-			elapsedCount = 0;
-			if (frameX >= 2)
-			{
-				isHit = false;
-				frameX = 0;
-				getDamage = false;
-				return;
-			}
-			if (getDamage == false)
-			{
-				getDamage = true;
-				HP -= attackValue;
-			}
-
-			return;
-		}
-
-	}
+    {
+        if (elapsedCount >= 15)
+        {
+            frameX++;
+            if (frameX >= 2)
+            {
+                frameX = 1;
+                isHit = false;
+                getDamage = false;
+                return;
+            }
+            if (getDamage == false)
+            {
+                getDamage = true;
+                HP -= attackValue;
+            }
+            elapsedCount = 0;
+            return;
+        }
+    }
 	else if (HP <= 0)
 	{
 		if (elapsedCount >= 30)

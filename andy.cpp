@@ -360,7 +360,7 @@ void Andy::Damaged()
 			if (frameX >= 2)
 			{
 				isHit = false;
-				frameX = 0;
+				frameX = 1;
 				getDamage = false;
 				return;
 			}
