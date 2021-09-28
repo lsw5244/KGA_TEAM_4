@@ -12,10 +12,7 @@ protected:
 	Image* koimg;
 
 	int HP;
-	int enemyHP;
 	int attackValue;
-	int bodySize;
-	RECT shape;
 	int charX;
 	float moveSpeed;
 
@@ -24,6 +21,8 @@ protected:
 	bool enemyCurrAtk;
 	bool isHit;
 	bool isAlive;
+
+	POINTFLOAT enemyPos;
 public:
 	void Init();
 	void Update();
@@ -44,11 +43,6 @@ public:
 
 	inline void SetMoveSpeed(float speed) { this->moveSpeed = speed; }
 
-	inline int GetBodySize() { return this->bodySize; }
-
 	inline int GetHP() { return this->HP; }
 	inline void SetHP(int HP) { this->HP = HP; }
-
-	inline int GetEnemyHP() { return this->enemyHP; }
-	inline void SetEnemyHP(int HP) { this->enemyHP = HP; }
 };

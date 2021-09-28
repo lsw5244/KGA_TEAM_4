@@ -8,8 +8,6 @@ protected:
 	POINTFLOAT pos;
 	POINTFLOAT pos2;
 	POINTFLOAT pos3;
-	POINTFLOAT pos4;
-	POINTFLOAT enemyPos;
 
 	int frameX, frameY;
 	int elapsedCount;

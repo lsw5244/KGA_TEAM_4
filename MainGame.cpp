@@ -39,7 +39,6 @@ void MainGame::Init()
 
 	terry->SetEnemyPos(andy->GetPos());
 	terry->SetEnemyCurrAtk(andy->GetCurrAtk());
-	terry->SetEnemyHP(andy->GetHP());
 
 	mapFrameTimer = 0;
 }

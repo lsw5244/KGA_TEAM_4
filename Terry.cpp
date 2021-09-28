@@ -31,8 +31,6 @@ void Terry::Init()
 
 	hp2img = new Image;
 	hp2img->Init("Image/Terry/Terry_HP_red.bmp", 360, 40, 1, 1, true, NULL);
-	pos4.x = (WIN_SIZE_X / 5) * 4 + 360;
-	pos4.y = (WIN_SIZE_Y / 6);
 
 	enemy = new Andy;
 	enemyPos.x = 0;

@@ -13,9 +13,6 @@ private:
 	// 타이머
 	HANDLE hTimer;
 
-	// UI
-	char text[128];
-
 	// 백버퍼
 	Image* backBuffer;
 
